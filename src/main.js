@@ -42,6 +42,9 @@ startBtn.addEventListener('click', function (){
     while (isNaN(money) || money == "" || money == null){
         money = +prompt('Ваш бюджет на месяц?', '');
     }
+    expenses_btn.disabled = "";
+    optionalExpenses_btn.disabled = "";
+    count_btn.disabled = "";
     appData.budget = money;
     appData.timeData = time;
     budget_value.textContent = money.toFixed();
@@ -78,7 +81,7 @@ optionalExpenses_btn.addEventListener("click", function (){
 count_btn.addEventListener("click", function (){
     if(appData.budget != undefined){
         //выводит бюджет на один день
-        appData.moneyPerDay = (appData.budget / 30).toFixed();
+        appData.moneyPerDay = ((appData.budget - expenses_value.textContent) / 30).toFixed();
         dayBudget_value.textContent = appData.moneyPerDay;
         //исходя из дневного бюджета показывает уровень дохода и выводит
         if (appData.moneyPerDay < 100) {
@@ -123,7 +126,7 @@ savings_sum_value.addEventListener('input', function (){
        yearSavings_value.textContent = appData.yearIncome.toFixed(2);
    }
 });
-savings_percent_value.addEventListener('input', function (){
+savings_percent_value.addEventListener('input', function() {
     if(appData.savings == true) {
         let sum = +savings_sum_value.value,
             percent = +savings_percent_value.value;
